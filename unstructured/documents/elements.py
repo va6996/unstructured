@@ -13,6 +13,7 @@ from itertools import groupby
 from types import MappingProxyType
 from typing import Any, Callable, FrozenSet, Optional, Sequence, cast
 
+from pandas import DataFrame
 from typing_extensions import ParamSpec, TypeAlias, TypedDict
 
 from unstructured.documents.coordinates import (
@@ -206,6 +207,7 @@ class ElementMetadata:
     # -- used for Table elements to capture rows/col structure --
     text_as_html: Optional[str]
     table_as_cells: Optional[dict[str, str | int]]
+    table_df: Optional[DataFrame]
     url: Optional[str]
 
     # -- debug fields can be assigned and referenced using dotted-notation but are not serialized
@@ -249,6 +251,7 @@ class ElementMetadata:
         subject: Optional[str] = None,
         table_as_cells: Optional[dict[str, str | int]] = None,
         text_as_html: Optional[str] = None,
+        table_df: Optional[DataFrame] = None,
         url: Optional[str] = None,
     ) -> None:
         self.attached_to_filename = attached_to_filename
@@ -293,6 +296,7 @@ class ElementMetadata:
         self.subject = subject
         self.text_as_html = text_as_html
         self.table_as_cells = table_as_cells
+        self.table_df = table_df
         self.url = url
 
     def __eq__(self, other: object) -> bool:

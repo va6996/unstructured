@@ -94,6 +94,7 @@ def partition_xlsx(
                 page_number=page_number,
                 filename=opts.metadata_file_path,
                 last_modified=opts.last_modified,
+                table_df=sheet,
             )
             metadata.detection_origin = DETECTION_ORIGIN
 
@@ -120,6 +121,7 @@ def partition_xlsx(
                     element.metadata.text_as_html = (
                         html_table.html if opts.infer_table_structure else None
                     )
+                    element.metadata.table_df = core_table
                     elements.append(element)
 
                 # -- no core-table is emitted if it's empty (all rows are single-cell rows) --
